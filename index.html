@@ -1,2 +1,45 @@
-<h1>Welcome to Funky Bunny Portal</h1>
-<p>Your gateway to all things Funky Bunny!</p>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Funky Bunny Portal</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Canvas wormhole -->
+    <canvas id="wormhole"></canvas>
+
+    <!-- UI overlay -->
+    <main class="ui">
+      <div class="brand">
+        <div class="sigil" aria-hidden="true"></div>
+        <div class="brandText">
+          <div class="kicker">FUNKY BUNNY</div>
+          <h1>PORTAL</h1>
+          <p>Your gateway to all things Funky Bunny.</p>
+        </div>
+      </div>
+
+      <div class="cta">
+        <button id="enterBtn" class="enter">
+          ENTER THE BUNNYVERSE
+        </button>
+        <div class="sub">
+          <span class="pill">Wormhole synced</span>
+          <span class="dot"></span>
+          <span class="pill">Safe landing enabled</span>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <span>Tip: turn your sound on 🔊</span>
+      </footer>
+    </main>
+
+    <!-- Warp overlay -->
+    <div id="warp" class="warp" aria-hidden="true"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,185 @@
+:root{
+  --bg:#05050a;
+  --text:#f3f0ff;
+  --muted:rgba(243,240,255,.75);
+  --purple:#7c3aed;
+  --pink:#ec4899;
+  --cyan:#22d3ee;
+  --glow: 0 0 25px rgba(124,58,237,.55), 0 0 60px rgba(236,72,153,.25);
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  background: radial-gradient(1200px 700px at 50% 55%, rgba(124,58,237,.18), transparent 60%),
+              radial-gradient(900px 600px at 40% 40%, rgba(34,211,238,.10), transparent 55%),
+              radial-gradient(800px 600px at 65% 65%, rgba(236,72,153,.10), transparent 55%),
+              var(--bg);
+  color:var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  overflow:hidden;
+}
+
+#wormhole{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  display:block;
+}
+
+.ui{
+  position:relative;
+  z-index:2;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding: clamp(18px, 4vw, 44px);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  user-select:none;
+}
+
+.sigil{
+  width:56px;
+  height:56px;
+  border-radius:18px;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(34,211,238,.8), transparent 40%),
+    radial-gradient(circle at 70% 70%, rgba(236,72,153,.75), transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(124,58,237,.95), rgba(124,58,237,.25) 55%, transparent 75%);
+  box-shadow: var(--glow);
+  position:relative;
+  overflow:hidden;
+}
+.sigil::after{
+  content:"";
+  position:absolute;
+  inset:-40%;
+  background: conic-gradient(from 180deg, transparent, rgba(255,255,255,.14), transparent);
+  animation: spin 3.6s linear infinite;
+}
+@keyframes spin{ to{ transform:rotate(360deg);} }
+
+.brandText .kicker{
+  letter-spacing:.26em;
+  font-weight:700;
+  font-size:12px;
+  opacity:.9;
+}
+.brandText h1{
+  margin:.15rem 0 .25rem;
+  font-size: clamp(34px, 5vw, 60px);
+  line-height:1;
+  letter-spacing:.03em;
+  text-shadow: 0 0 18px rgba(124,58,237,.45);
+}
+.brandText p{
+  margin:0;
+  color:var(--muted);
+  max-width: 46ch;
+}
+
+.cta{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:14px;
+}
+
+.enter{
+  appearance:none;
+  border:none;
+  cursor:pointer;
+  padding: 14px 18px;
+  border-radius: 16px;
+  color:var(--text);
+  font-weight:800;
+  letter-spacing:.06em;
+  background:
+    linear-gradient(135deg, rgba(124,58,237,.95), rgba(236,72,153,.75));
+  box-shadow: var(--glow);
+  transform: translateY(0);
+  transition: transform .15s ease, filter .2s ease, box-shadow .2s ease;
+}
+.enter:hover{
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+  box-shadow: 0 0 30px rgba(124,58,237,.65), 0 0 80px rgba(236,72,153,.28);
+}
+.enter:active{
+  transform: translateY(1px) scale(.99);
+}
+
+.sub{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  color:var(--muted);
+  font-size:13px;
+}
+.pill{
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.25);
+  backdrop-filter: blur(10px);
+}
+.dot{
+  width:6px;height:6px;border-radius:999px;
+  background: rgba(34,211,238,.95);
+  box-shadow: 0 0 18px rgba(34,211,238,.8);
+}
+
+.footer{
+  color:rgba(243,240,255,.55);
+  font-size:12px;
+}
+
+/* Warp overlay */
+.warp{
+  position:fixed;
+  inset:0;
+  z-index:5;
+  pointer-events:none;
+  opacity:0;
+  background:
+    radial-gradient(circle at 50% 55%, rgba(255,255,255,.95), rgba(255,255,255,.15) 18%, transparent 55%),
+    radial-gradient(circle at 50% 55%, rgba(124,58,237,.85), transparent 60%),
+    radial-gradient(circle at 50% 55%, rgba(34,211,238,.35), transparent 65%),
+    radial-gradient(circle at 50% 55%, rgba(236,72,153,.30), transparent 70%);
+  filter: blur(0px);
+  transform: scale(1);
+}
+
+body.warping .warp{
+  animation: warpFlash 2.2s ease-in-out forwards;
+}
+
+@keyframes warpFlash{
+  0%   { opacity:0; transform:scale(1); filter: blur(0px); }
+  10%  { opacity:.35; }
+  25%  { opacity:.75; transform:scale(1.02); filter: blur(0px); }
+  55%  { opacity:.9; transform:scale(1.08); filter: blur(1px); }
+  100% { opacity:1; transform:scale(1.14); filter: blur(2px); }
+}
+
+/* subtle camera shake */
+body.warping{
+  animation: shake .7s ease-in-out 0s 2;
+}
+@keyframes shake{
+  0%{ transform: translate(0,0); }
+  20%{ transform: translate(-2px,1px); }
+  40%{ transform: translate(2px,-1px); }
+  60%{ transform: translate(-1px,-2px); }
+  80%{ transform: translate(1px,2px); }
+  100%{ transform: translate(0,0); }
+}
