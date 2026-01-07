@@ -1,45 +1,45 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Funky Bunny Portal</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <!-- Canvas wormhole -->
-    <canvas id="wormhole"></canvas>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Funky Bunny Portal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Layered backgrounds -->
+  <div class="space"></div>
+  <div class="nebula"></div>
 
-    <!-- UI overlay -->
-    <main class="ui">
-      <div class="brand">
-        <div class="sigil" aria-hidden="true"></div>
-        <div class="brandText">
-          <div class="kicker">FUNKY BUNNY</div>
-          <h1>PORTAL</h1>
-          <p>Your gateway to all things Funky Bunny.</p>
-        </div>
-      </div>
+  <!-- Canvas FX -->
+  <canvas id="stars"></canvas>
+  <canvas id="streaks"></canvas>
 
-      <div class="cta">
-        <button id="enterBtn" class="enter">
-          ENTER THE BUNNYVERSE
-        </button>
-        <div class="sub">
-          <span class="pill">Wormhole synced</span>
-          <span class="dot"></span>
-          <span class="pill">Safe landing enabled</span>
-        </div>
-      </div>
+  <!-- Overlays -->
+  <div class="vignette"></div>
+  <div class="mist"></div>
 
-      <footer class="footer">
-        <span>Tip: turn your sound on 🔊</span>
-      </footer>
-    </main>
+  <main class="stage">
+    <header class="brand">
+      <div class="glitch" data-text="FUNKY BUNNY">FUNKY BUNNY</div>
+      <div class="subtitle">SMOKE CLUB · BUNNYVERSE PORTAL</div>
+    </header>
 
-    <!-- Warp overlay -->
-    <div id="warp" class="warp" aria-hidden="true"></div>
+    <div class="portal-wrap" aria-hidden="true">
+      <div class="portal-ring"></div>
+      <div class="portal-ring ring2"></div>
+      <div class="portal-core"></div>
+      <div class="portal-noise"></div>
+    </div>
 
-    <script src="script.js"></script>
-  </body>
+    <button id="enterBtn" class="enter">
+      ENTER THE BUNNYVERSE
+      <span class="spark" aria-hidden="true"></span>
+    </button>
+
+    <p class="hint">Press <b>Space</b> for hyperdrive ✨</p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
 </html>
