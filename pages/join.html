@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Join the Funky Bunnyverse — If you get it, you're already one of us."/>
+  <meta name="theme-color" content="#05030a"/>
+  <title>Join Us — Funky Bunnyverse</title>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400&display=swap');
+    
+    :root {
+      --bg: #05030a;
+      --purple: #a855f7;
+      --cyan: #33d6ff;
+      --pink: #ff4fd8;
+      --green: #7CFF6B;
+      --text: rgba(255, 255, 255, 0.88);
+      --text-soft: rgba(255, 255, 255, 0.6);
+      --text-whisper: rgba(255, 255, 255, 0.35);
+      --font-display: 'Space Mono', monospace;
+      --font-body: 'Outfit', sans-serif;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+    }
+    
+    /* Atmosphere */
+    .atmosphere {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background: 
+        radial-gradient(600px 500px at 50% 30%, rgba(168, 85, 247, 0.1), transparent 60%),
+        radial-gradient(500px 400px at 30% 70%, rgba(51, 214, 255, 0.06), transparent 60%),
+        radial-gradient(400px 300px at 70% 80%, rgba(255, 79, 216, 0.05), transparent 60%);
+    }
+    
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.04;
+      z-index: 1000;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='.4'/%3E%3C/svg%3E");
+    }
+    
+    /* Content */
+    .content {
+      position: relative;
+      z-index: 1;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Header */
+    header {
+      padding: 40px;
+    }
+    
+    .back-link {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--text-whisper);
+      text-decoration: none;
+      padding: 10px 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      transition: all 0.3s ease;
+    }
+    
+    .back-link:hover {
+      color: var(--text-soft);
+      border-color: rgba(168, 85, 247, 0.3);
+    }
+    
+    /* Main */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      text-align: center;
+    }
+    
+    .join-icon {
+      font-size: 64px;
+      margin-bottom: 32px;
+      filter: drop-shadow(0 0 40px rgba(168, 85, 247, 0.5));
+      animation: iconPulse 4s ease-in-out infinite;
+    }
+    
+    @keyframes iconPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    .join-message {
+      max-width: 500px;
+      margin-bottom: 48px;
+    }
+    
+    .join-message h1 {
+      font-family: var(--font-display);
+      font-size: clamp(20px, 3vw, 28px);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      margin-bottom: 24px;
+    }
+    
+    .join-message p {
+      font-size: 15px;
+      line-height: 1.9;
+      color: var(--text-soft);
+      margin-bottom: 16px;
+    }
+    
+    .join-message em {
+      color: var(--text);
+      font-style: normal;
+    }
+    
+    /* Links */
+    .join-links {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      max-width: 320px;
+    }
+    
+    .join-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 18px 32px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      text-decoration: none;
+      color: var(--text-soft);
+      font-family: var(--font-display);
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      transition: all 0.3s ease;
+    }
+    
+    .join-link:hover {
+      background: rgba(168, 85, 247, 0.1);
+      border-color: rgba(168, 85, 247, 0.3);
+      color: var(--text);
+      transform: translateY(-2px);
+    }
+    
+    .join-link span:first-child {
+      font-size: 18px;
+    }
+    
+    /* Divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 32px 0;
+      width: 100%;
+      max-width: 320px;
+    }
+    
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.1);
+    }
+    
+    .divider span {
+      font-family: var(--font-display);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--text-whisper);
+    }
+    
+    /* Philosophy */
+    .philosophy {
+      margin-top: 48px;
+      padding: 24px 32px;
+      background: rgba(168, 85, 247, 0.05);
+      border: 1px solid rgba(168, 85, 247, 0.15);
+      border-radius: 16px;
+      max-width: 440px;
+    }
+    
+    .philosophy p {
+      font-family: var(--font-display);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      line-height: 1.9;
+      color: var(--text-soft);
+    }
+    
+    .philosophy em {
+      color: var(--purple);
+      font-style: normal;
+    }
+    
+    /* Footer */
+    footer {
+      padding: 40px;
+      text-align: center;
+    }
+    
+    footer p {
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--text-whisper);
+      opacity: 0.5;
+    }
+    
+    /* Responsive */
+    @media (max-width: 600px) {
+      header { padding: 24px; }
+      main { padding: 24px; }
+    }
+    
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .join-icon { animation: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  
+  <div class="atmosphere"></div>
+  <div class="grain"></div>
+  
+  <div class="content">
+    
+    <header>
+      <a href="../index.html" class="back-link">← back to hub</a>
+    </header>
+    
+    <main>
+      
+      <div class="join-icon">🐰</div>
+      
+      <div class="join-message">
+        <h1>join the drift</h1>
+        <p>
+          You don't join by signing up.<br>
+          You don't join by paying.<br>
+          <em>You join by vibing.</em>
+        </p>
+        <p>
+          If you get it, you're already one of us.
+        </p>
+      </div>
+      
+      <div class="join-links">
+        <!-- Replace # with actual links -->
+        <a href="#" class="join-link">
+          <span>🌀</span>
+          <span>discord (soon)</span>
+        </a>
+        <a href="#" class="join-link">
+          <span>📷</span>
+          <span>instagram</span>
+        </a>
+        <a href="#" class="join-link">
+          <span>🐦</span>
+          <span>twitter / x</span>
+        </a>
+      </div>
+      
+      <div class="divider">
+        <span>or</span>
+      </div>
+      
+      <div class="join-links">
+        <a href="#" class="join-link">
+          <span>📬</span>
+          <span>signal transmissions</span>
+        </a>
+      </div>
+      
+      <div class="philosophy">
+        <p>
+          we don't blast. we don't spam.<br>
+          when something matters, <em>you'll know</em>.<br>
+          that's the funky bunny way.
+        </p>
+      </div>
+      
+    </main>
+    
+    <footer>
+      <p>"the bunnies find each other."</p>
+    </footer>
+    
+  </div>
+  
+</body>
+</html>

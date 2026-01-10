@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Smoke Club — The Lounge. Sit down. Breathe. You're here."/>
+  <meta name="theme-color" content="#020a06"/>
+  <title>Smoke Club — Funky Bunnyverse</title>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400&display=swap');
+    
+    :root {
+      --bg: #020a06;
+      --green: #7CFF6B;
+      --green-dim: #3d8c35;
+      --purple: #a855f7;
+      --text: rgba(255, 255, 255, 0.88);
+      --text-soft: rgba(255, 255, 255, 0.6);
+      --text-whisper: rgba(255, 255, 255, 0.35);
+      --font-display: 'Space Mono', monospace;
+      --font-body: 'Outfit', sans-serif;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+    }
+    
+    /* Ambient background */
+    .atmosphere {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    .atmosphere::before {
+      content: '';
+      position: absolute;
+      inset: -20%;
+      background: 
+        radial-gradient(800px 600px at 20% 30%, rgba(124, 255, 107, 0.08), transparent 60%),
+        radial-gradient(600px 500px at 80% 70%, rgba(168, 85, 247, 0.06), transparent 60%),
+        radial-gradient(1000px 800px at 50% 100%, rgba(124, 255, 107, 0.04), transparent 50%);
+      animation: atmosphereShift 20s ease-in-out infinite alternate;
+    }
+    
+    @keyframes atmosphereShift {
+      from { transform: translate(-20px, -10px) scale(1.02); }
+      to { transform: translate(20px, 10px) scale(1.05); }
+    }
+    
+    /* Smoke wisps */
+    .smoke {
+      position: fixed;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.03), transparent 70%);
+      filter: blur(40px);
+      pointer-events: none;
+      animation: smokeFloat 25s ease-in-out infinite;
+    }
+    
+    .smoke:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+    .smoke:nth-child(2) { right: 15%; top: 40%; animation-delay: -8s; }
+    .smoke:nth-child(3) { left: 30%; bottom: 20%; animation-delay: -16s; }
+    
+    @keyframes smokeFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+      25% { transform: translate(30px, -40px) scale(1.1); opacity: 0.7; }
+      50% { transform: translate(-20px, -20px) scale(0.9); opacity: 0.4; }
+      75% { transform: translate(40px, 20px) scale(1.05); opacity: 0.6; }
+    }
+    
+    /* Content */
+    .content {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Header */
+    header {
+      padding: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    
+    .back-link {
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--text-whisper);
+      text-decoration: none;
+      padding: 10px 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      transition: all 0.3s ease;
+    }
+    
+    .back-link:hover {
+      color: var(--text-soft);
+      border-color: rgba(124, 255, 107, 0.3);
+    }
+    
+    .room-label {
+      text-align: right;
+    }
+    
+    .room-label h1 {
+      font-family: var(--font-display);
+      font-size: clamp(20px, 2.5vw, 28px);
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--green);
+      text-shadow: 0 0 30px rgba(124, 255, 107, 0.3);
+    }
+    
+    .room-label p {
+      margin-top: 6px;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      color: var(--text-whisper);
+    }
+    
+    /* Main lounge area */
+    .lounge {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      text-align: center;
+    }
+    
+    .moment {
+      max-width: 600px;
+    }
+    
+    .moment-icon {
+      font-size: 64px;
+      margin-bottom: 32px;
+      filter: drop-shadow(0 0 40px rgba(124, 255, 107, 0.4));
+      animation: iconFloat 6s ease-in-out infinite;
+    }
+    
+    @keyframes iconFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .moment-text {
+      font-family: var(--font-display);
+      font-size: clamp(16px, 2vw, 22px);
+      line-height: 1.8;
+      color: var(--text-soft);
+      margin-bottom: 48px;
+    }
+    
+    .moment-text em {
+      color: var(--green);
+      font-style: normal;
+    }
+    
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(124, 255, 107, 0.3), transparent);
+      margin: 0 auto 48px;
+    }
+    
+    .whisper {
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      color: var(--text-whisper);
+      line-height: 2;
+    }
+    
+    /* Breathe link */
+    .breathe-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 48px;
+      padding: 16px 32px;
+      background: rgba(124, 255, 107, 0.06);
+      border: 1px solid rgba(124, 255, 107, 0.2);
+      border-radius: 999px;
+      text-decoration: none;
+      color: var(--text-soft);
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      transition: all 0.4s ease;
+    }
+    
+    .breathe-link:hover {
+      background: rgba(124, 255, 107, 0.12);
+      border-color: rgba(124, 255, 107, 0.4);
+      color: var(--green);
+      transform: translateY(-2px);
+    }
+    
+    .breathe-link span:first-child {
+      font-size: 18px;
+      animation: breatheIcon 4s ease-in-out infinite;
+    }
+    
+    @keyframes breatheIcon {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.2); opacity: 1; }
+    }
+    
+    /* Ambient player */
+    .ambient-hint {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-display);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--text-whisper);
+      padding: 12px 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 999px;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(10px);
+    }
+    
+    /* Footer quote */
+    footer {
+      padding: 40px;
+      text-align: center;
+    }
+    
+    footer p {
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--text-whisper);
+      opacity: 0.6;
+    }
+    
+    /* Grain overlay */
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.04;
+      z-index: 1000;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='.4'/%3E%3C/svg%3E");
+    }
+    
+    /* Responsive */
+    @media (max-width: 600px) {
+      header { padding: 24px; flex-direction: column; gap: 20px; }
+      .room-label { text-align: left; }
+      .lounge { padding: 24px; }
+    }
+    
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .smoke, .atmosphere::before, .moment-icon { animation: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  
+  <!-- Atmosphere -->
+  <div class="atmosphere"></div>
+  <div class="smoke"></div>
+  <div class="smoke"></div>
+  <div class="smoke"></div>
+  <div class="grain"></div>
+  
+  <div class="content">
+    
+    <header>
+      <a href="../index.html" class="back-link">← back to hub</a>
+      <div class="room-label">
+        <h1>SMOKE CLUB</h1>
+        <p>the lounge</p>
+      </div>
+    </header>
+    
+    <main class="lounge">
+      <div class="moment">
+        <div class="moment-icon">🌿</div>
+        <p class="moment-text">
+          you're here.<br>
+          <em>sit down.</em><br>
+          breathe.
+        </p>
+        <div class="divider"></div>
+        <p class="whisper">
+          there's nothing to buy here.<br>
+          nothing to sign up for.<br>
+          just... space.
+        </p>
+        
+        <a href="breathe.html" class="breathe-link">
+          <span>◉</span>
+          <span>breathe with us</span>
+        </a>
+      </div>
+    </main>
+    
+    <div class="ambient-hint">
+      ◉ ambient mode coming soon
+    </div>
+    
+    <footer>
+      <p>"the lounge exists for those who found it."</p>
+    </footer>
+    
+  </div>
+  
+</body>
+</html>

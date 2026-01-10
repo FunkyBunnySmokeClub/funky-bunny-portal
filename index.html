@@ -1,43 +1,41 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Funky Bunny Portal</title>
+  <title>Funky Bunny Smoke Club — Portal</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-  <!-- Layered backgrounds -->
-  <div class="space"></div>
-  <div class="nebula"></div>
+  <main id="portal" class="portal">
+    <!-- Video (portal is the hero) -->
+    <video
+      id="portalVideo"
+      class="portal__video"
+      src="assets/fb-portal-web.mp4"
+      autoplay
+      playsinline
+      preload="auto"
+    ></video>
 
-  <!-- Canvas FX -->
-  <canvas id="stars"></canvas>
-  <canvas id="streaks"></canvas>
+    <!-- Flavor overlays (very subtle, do NOT block the portal) -->
+    <div class="portal__vignette" aria-hidden="true"></div>
+    <div class="portal__grain" aria-hidden="true"></div>
 
-  <!-- Overlays -->
-  <div class="vignette"></div>
-  <div class="mist"></div>
-
-  <main class="stage">
-    <header class="brand">
-      <div class="glitch" data-text="FUNKY BUNNY">FUNKY BUNNY</div>
-      <div class="subtitle">SMOKE CLUB · BUNNYVERSE PORTAL</div>
-    </header>
-
-    <div class="portal-wrap" aria-hidden="true">
-      <div class="portal-ring"></div>
-      <div class="portal-ring ring2"></div>
-      <div class="portal-core"></div>
-      <div class="portal-noise"></div>
+    <!-- Glitch title (top, minimal) -->
+    <div class="brand" aria-label="Funky Bunny Smoke Club">
+      <div class="brand__line1 glitch" data-text="FUNKY BUNNY">FUNKY BUNNY</div>
+      <div class="brand__line2 glitch" data-text="SMOKE CLUB">SMOKE CLUB</div>
     </div>
 
-    <button id="enterBtn" class="enter">
-      ENTER THE BUNNYVERSE
-      <span class="spark" aria-hidden="true"></span>
+    <!-- Skip only -->
+    <button id="skipBtn" class="skip" type="button" aria-label="Skip intro">
+      SKIP
     </button>
 
-    <p class="hint">Press <b>Space</b> for hyperdrive ✨</p>
+    <!-- Fade layer for clean transition -->
+    <div id="fade" class="fade" aria-hidden="true"></div>
   </main>
 
   <script src="script.js"></script>

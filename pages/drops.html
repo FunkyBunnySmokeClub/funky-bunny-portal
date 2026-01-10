@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Drops — Nothing permanent. Everything intentional."/>
+  <meta name="theme-color" content="#0a0805"/>
+  <title>Drops — Funky Bunnyverse</title>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400&display=swap');
+    
+    :root {
+      --bg: #0a0805;
+      --gold: #fbbf24;
+      --gold-dim: #b8860b;
+      --purple: #a855f7;
+      --text: rgba(255, 255, 255, 0.88);
+      --text-soft: rgba(255, 255, 255, 0.6);
+      --text-whisper: rgba(255, 255, 255, 0.35);
+      --font-display: 'Space Mono', monospace;
+      --font-body: 'Outfit', sans-serif;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+    }
+    
+    /* Sacred glow background */
+    .atmosphere {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    .atmosphere::before {
+      content: '';
+      position: absolute;
+      inset: -20%;
+      background: 
+        radial-gradient(600px 500px at 50% 40%, rgba(251, 191, 36, 0.06), transparent 60%),
+        radial-gradient(400px 300px at 30% 70%, rgba(168, 85, 247, 0.04), transparent 60%),
+        radial-gradient(500px 400px at 70% 80%, rgba(251, 191, 36, 0.03), transparent 60%);
+      animation: sacredPulse 12s ease-in-out infinite alternate;
+    }
+    
+    @keyframes sacredPulse {
+      from { transform: scale(1); opacity: 1; }
+      to { transform: scale(1.1); opacity: 0.8; }
+    }
+    
+    /* Floating dust particles */
+    .dust {
+      position: fixed;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0;
+      pointer-events: none;
+      animation: dustFloat 8s ease-in-out infinite;
+    }
+    
+    .dust:nth-child(1) { left: 20%; top: 30%; animation-delay: 0s; }
+    .dust:nth-child(2) { left: 50%; top: 20%; animation-delay: 2s; }
+    .dust:nth-child(3) { right: 25%; top: 45%; animation-delay: 4s; }
+    .dust:nth-child(4) { left: 35%; bottom: 35%; animation-delay: 1s; }
+    .dust:nth-child(5) { right: 40%; bottom: 25%; animation-delay: 3s; }
+    .dust:nth-child(6) { left: 15%; top: 60%; animation-delay: 5s; }
+    .dust:nth-child(7) { right: 15%; top: 70%; animation-delay: 2.5s; }
+    
+    @keyframes dustFloat {
+      0%, 100% { 
+        opacity: 0; 
+        transform: translateY(0) scale(1); 
+      }
+      50% { 
+        opacity: 0.6; 
+        transform: translateY(-30px) scale(1.5);
+        box-shadow: 0 0 8px var(--gold);
+      }
+    }
+    
+    /* Content */
+    .content {
+      position: relative;
+      z-index: 1;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Header */
+    header {
+      padding: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    
+    .back-link {
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--text-whisper);
+      text-decoration: none;
+      padding: 10px 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      transition: all 0.3s ease;
+    }
+    
+    .back-link:hover {
+      color: var(--text-soft);
+      border-color: rgba(251, 191, 36, 0.3);
+    }
+    
+    .room-label {
+      text-align: right;
+    }
+    
+    .room-label h1 {
+      font-family: var(--font-display);
+      font-size: clamp(18px, 2.5vw, 26px);
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      text-shadow: 0 0 30px rgba(251, 191, 36, 0.4);
+    }
+    
+    .room-label p {
+      margin-top: 6px;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      color: var(--text-whisper);
+    }
+    
+    /* Main vault area */
+    .vault {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      text-align: center;
+    }
+    
+    .vault-icon {
+      font-size: 72px;
+      margin-bottom: 40px;
+      filter: drop-shadow(0 0 40px rgba(251, 191, 36, 0.5));
+      animation: gemFloat 5s ease-in-out infinite;
+    }
+    
+    @keyframes gemFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(3deg); }
+    }
+    
+    .vault-message {
+      max-width: 480px;
+    }
+    
+    .vault-message h2 {
+      font-family: var(--font-display);
+      font-size: 13px;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+    
+    .vault-message p {
+      font-size: 15px;
+      line-height: 2;
+      color: var(--text-soft);
+      margin-bottom: 16px;
+    }
+    
+    .vault-message em {
+      color: var(--text);
+      font-style: normal;
+    }
+    
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.4), transparent);
+      margin: 40px auto;
+    }
+    
+    .philosophy {
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--text-whisper);
+      line-height: 2.2;
+    }
+    
+    /* Status indicator */
+    .status {
+      margin-top: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold-dim);
+      animation: statusPulse 3s ease-in-out infinite;
+    }
+    
+    @keyframes statusPulse {
+      0%, 100% { opacity: 0.4; box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.4); }
+      50% { opacity: 1; box-shadow: 0 0 20px 4px rgba(251, 191, 36, 0.2); }
+    }
+    
+    .status-text {
+      font-family: var(--font-display);
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      color: var(--text-whisper);
+      text-transform: uppercase;
+    }
+    
+    /* Future drops preview (hidden for now) */
+    .coming-section {
+      margin-top: 80px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      width: 100%;
+      max-width: 600px;
+    }
+    
+    .coming-section h3 {
+      font-family: var(--font-display);
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      color: var(--text-whisper);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    
+    .coming-items {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    
+    .coming-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0.4;
+    }
+    
+    .coming-item span:first-child {
+      font-size: 28px;
+      filter: grayscale(0.5);
+    }
+    
+    .coming-item span:last-child {
+      font-family: var(--font-display);
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      color: var(--text-whisper);
+    }
+    
+    /* Footer */
+    footer {
+      padding: 40px;
+      text-align: center;
+    }
+    
+    footer p {
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--text-whisper);
+      opacity: 0.5;
+    }
+    
+    /* Grain */
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.04;
+      z-index: 1000;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='.4'/%3E%3C/svg%3E");
+    }
+    
+    /* Responsive */
+    @media (max-width: 600px) {
+      header { 
+        padding: 24px; 
+        flex-direction: column; 
+        gap: 20px; 
+      }
+      .room-label { text-align: left; }
+      .vault { padding: 24px; }
+      .coming-items { gap: 24px; }
+    }
+    
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .dust, .vault-icon, .status-dot, .atmosphere::before { 
+        animation: none !important; 
+      }
+    }
+  </style>
+</head>
+
+<body>
+  
+  <!-- Atmosphere -->
+  <div class="atmosphere"></div>
+  <div class="dust"></div>
+  <div class="dust"></div>
+  <div class="dust"></div>
+  <div class="dust"></div>
+  <div class="dust"></div>
+  <div class="dust"></div>
+  <div class="dust"></div>
+  <div class="grain"></div>
+  
+  <div class="content">
+    
+    <header>
+      <a href="../index.html" class="back-link">← back to hub</a>
+      <div class="room-label">
+        <h1>DROPS</h1>
+        <p>sacred objects</p>
+      </div>
+    </header>
+    
+    <main class="vault">
+      
+      <div class="vault-icon">💎</div>
+      
+      <div class="vault-message">
+        <h2>the vault is quiet</h2>
+        <p>
+          nothing is live right now.<br>
+          <em>and that's intentional.</em>
+        </p>
+        <p>
+          when something drops here,<br>
+          it won't be permanent.<br>
+          it won't be mass-produced.<br>
+          it will mean something.
+        </p>
+        
+        <div class="divider"></div>
+        
+        <p class="philosophy">
+          art drops. digital collectibles.<br>
+          music packs. physical objects.<br>
+          <em>nothing stays forever.<br>
+          everything arrives with purpose.</em>
+        </p>
+      </div>
+      
+      <div class="status">
+        <div class="status-dot"></div>
+        <span class="status-text">vault status: waiting</span>
+      </div>
+      
+      <div class="coming-section">
+        <h3>future transmissions</h3>
+        <div class="coming-items">
+          <div class="coming-item">
+            <span>🎨</span>
+            <span>art</span>
+          </div>
+          <div class="coming-item">
+            <span>🎵</span>
+            <span>sound</span>
+          </div>
+          <div class="coming-item">
+            <span>👕</span>
+            <span>physical</span>
+          </div>
+          <div class="coming-item">
+            <span>✨</span>
+            <span>???</span>
+          </div>
+        </div>
+      </div>
+      
+    </main>
+    
+    <footer>
+      <p>"if you missed it, it wasn't for you. yet."</p>
+    </footer>
+    
+  </div>
+  
+</body>
+</html>

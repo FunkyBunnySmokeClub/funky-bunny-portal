@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Funky Bunnyverse — A psychedelic counterculture universe. Slow down. Observe. Enter the lounge."/>
+  <meta name="theme-color" content="#05030a"/>
+  <title>Funky Bunnyverse</title>
+  <link rel="stylesheet" href="hub.css" />
+  
+  <!-- Preload ambient audio -->
+  <link rel="preload" href="./assets/ambient.mp3" as="audio" type="audio/mpeg"/>
+  
+  <noscript>
+    <style>
+      .door { pointer-events: auto; }
+      #pageTransition, #enterOverlay { display: none; }
+      .parallaxLayer { transform: none !important; }
+      .portalSwirl, .portalSparks, .sporeField { animation: none !important; }
+      .parallaxContent { opacity: 1 !important; }
+    </style>
+  </noscript>
+</head>
+
+<body>
+
+<!-- ================================
+     ENTER OVERLAY (First Visit Gate)
+     "You're here. Sit down. Breathe."
+     ================================ -->
+<div id="enterOverlay" class="enterOverlay">
+  <div class="enterContent">
+    <div class="enterSymbol">🐰</div>
+    <p class="enterWhisper">slow down.</p>
+    <button class="enterBtn" id="enterBtn">
+      <span>enter the lounge</span>
+    </button>
+    <p class="enterHint">sound recommended</p>
+  </div>
+</div>
+
+<!-- PAGE TRANSITION OVERLAY -->
+<div id="pageTransition" aria-hidden="true"></div>
+
+<!-- FLOATING THOUGHT (Random philosophy) -->
+<div id="floatingThought" class="floatingThought" aria-hidden="true">
+  <p id="thoughtText"></p>
+</div>
+
+<!-- AMBIENT CONTROL -->
+<button id="ambientToggle" class="ambientToggle" aria-label="Toggle ambient sound">
+  <span class="ambientIcon">◉</span>
+  <span class="ambientLabel">sound</span>
+</button>
+
+<!-- PARALLAX SCENE -->
+<main class="parallaxScene" id="parallaxScene">
+
+  <!-- Background layers (decorative) -->
+  <div class="parallaxLayer layerBack" aria-hidden="true"></div>
+  <div class="parallaxLayer layerMid" aria-hidden="true"></div>
+  <div class="parallaxLayer layerFront" aria-hidden="true"></div>
+  
+  <!-- Floating spores -->
+  <div class="sporeField" id="sporeField" aria-hidden="true"></div>
+
+  <div class="parallaxContent" id="mainContent">
+
+    <!-- HEADER -->
+    <header class="top">
+      <div class="brand">
+        <p class="tag">you found the</p>
+        <h1 class="glitch" data-text="FUNKY BUNNYVERSE">FUNKY BUNNYVERSE</h1>
+        <p class="sub">where minds drift free</p>
+      </div>
+
+      <nav class="miniLinks" aria-label="Secondary navigation">
+        <a href="./pages/about.html">about</a>
+        <a href="./pages/join.html">join us</a>
+      </nav>
+    </header>
+
+    <!-- NEON SIGN -->
+    <div class="neonWrap" aria-hidden="true">
+      <div class="neonSign">
+        <span>STARSHROOM</span>
+        <span class="small">SPEAKEASY</span>
+      </div>
+    </div>
+
+    <!-- PORTAL DOORS -->
+    <section class="doors" aria-label="Portal navigation">
+
+      <!-- SMOKE CLUB -->
+      <a class="door door-a" href="./pages/smoke-club.html" aria-label="Smoke Club - The Lounge">
+        <div class="doorFrame"></div>
+        <div class="doorCore"></div>
+        <div class="portalSwirl" aria-hidden="true"></div>
+        <div class="portalSparks" aria-hidden="true"></div>
+        <div class="doorGlyph">🌿</div>
+        <span class="doorLabel">SMOKE CLUB</span>
+        <span class="doorHint">sit down. breathe.</span>
+      </a>
+
+      <!-- MIND UNLOCKED -->
+      <a class="door door-b" href="./pages/mind-unlocked.html" aria-label="Mind Unlocked - Inner Work">
+        <div class="doorFrame"></div>
+        <div class="doorCore"></div>
+        <div class="portalSwirl" aria-hidden="true"></div>
+        <div class="portalSparks" aria-hidden="true"></div>
+        <div class="doorGlyph">🧠</div>
+        <span class="doorLabel">MIND UNLOCKED</span>
+        <span class="doorHint">thoughts you didn't know you needed</span>
+      </a>
+
+      <!-- COMICS / LORE -->
+      <a class="door door-c" href="./pages/comics.html" aria-label="Comics - The Story">
+        <div class="doorFrame"></div>
+        <div class="doorCore"></div>
+        <div class="portalSwirl" aria-hidden="true"></div>
+        <div class="portalSparks" aria-hidden="true"></div>
+        <div class="doorGlyph">📖</div>
+        <span class="doorLabel">THE STORY</span>
+        <span class="doorHint">moments. memories. lore.</span>
+      </a>
+
+      <!-- DROPS -->
+      <a class="door door-d" href="./pages/drops.html" aria-label="Drops - Sacred Objects">
+        <div class="doorFrame"></div>
+        <div class="doorCore"></div>
+        <div class="portalSwirl" aria-hidden="true"></div>
+        <div class="portalSparks" aria-hidden="true"></div>
+        <div class="doorGlyph">💎</div>
+        <span class="doorLabel">DROPS</span>
+        <span class="doorHint">nothing permanent. everything intentional.</span>
+      </a>
+
+    </section>
+
+    <!-- BOTTOM WHISPER -->
+    <footer class="bottomWhisper">
+      <p>"if you get it, you're already one of us."</p>
+    </footer>
+
+  </div>
+</main>
+
+<!-- HIDDEN AUDIO (ambient soundscape) -->
+<audio id="ambientAudio" loop preload="auto">
+  <source src="./assets/ambient.mp3" type="audio/mpeg"/>
+  <source src="./assets/ambient.ogg" type="audio/ogg"/>
+</audio>
+
+<script src="hub.js"></script>
+</body>
+</html>

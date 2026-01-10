@@ -1,126 +1,42 @@
-const enterBtn = document.getElementById("enterBtn");
+const HUB_URL = "hub.html";
 
-const starsCanvas = document.getElementById("stars");
-const starsCtx = starsCanvas.getContext("2d");
+const portal = document.getElementById("portal");
+const video = document.getElementById("portalVideo");
+const fade = document.getElementById("fade");
+const skipBtn = document.getElementById("skipBtn");
 
-const streaksCanvas = document.getElementById("streaks");
-const streaksCtx = streaksCanvas.getContext("2d");
+// Attempt sound-on autoplay (may be blocked by browser policy)
+video.muted = false;
+video.volume = 1.0;
 
-let w, h;
-let stars = [];
-let streaks = [];
-let hyper = false;
+video.play().catch(() => {
+  // If blocked, fall back to muted autoplay so portal still runs
+  video.muted = true;
+  video.play().catch(() => {});
+});
 
-function resize(){
-  w = starsCanvas.width = streaksCanvas.width = window.innerWidth;
-  h = starsCanvas.height = streaksCanvas.height = window.innerHeight;
-  makeStars();
-  makeStreaks();
+// On first user interaction anywhere, unmute (best possible “sound on default” behavior)
+function unlockAudio() {
+  video.muted = false;
+  video.volume = 1.0;
+  video.play().catch(() => {});
+  window.removeEventListener("pointerdown", unlockAudio);
+  window.removeEventListener("keydown", unlockAudio);
 }
-window.addEventListener("resize", resize);
+window.addEventListener("pointerdown", unlockAudio, { once: true });
+window.addEventListener("keydown", unlockAudio, { once: true });
 
-function makeStars(){
-  const count = Math.floor((w * h) / 16000);
-  stars = new Array(count).fill(0).map(() => ({
-    x: Math.random() * w,
-    y: Math.random() * h,
-    r: Math.random() * 1.6 + 0.2,
-    v: Math.random() * 0.55 + 0.12
-  }));
-}
-
-function makeStreaks(){
-  const count = Math.floor((w * h) / 90000);
-  streaks = new Array(count).fill(0).map(() => ({
-    x: Math.random() * w,
-    y: Math.random() * h,
-    len: Math.random() * 120 + 40,
-    speed: Math.random() * 2 + 1
-  }));
-}
-
-function drawStars(){
-  starsCtx.clearRect(0,0,w,h);
-
-  // soft haze blobs
-  starsCtx.globalAlpha = 0.10;
-  starsCtx.fillStyle = "#8a2be2";
-  starsCtx.beginPath();
-  starsCtx.arc(w*0.72, h*0.28, Math.min(w,h)*0.35, 0, Math.PI*2);
-  starsCtx.fill();
-
-  starsCtx.globalAlpha = 0.08;
-  starsCtx.fillStyle = "#31ffd6";
-  starsCtx.beginPath();
-  starsCtx.arc(w*0.28, h*0.70, Math.min(w,h)*0.28, 0, Math.PI*2);
-  starsCtx.fill();
-
-  starsCtx.globalAlpha = 0.95;
-  for(const s of stars){
-    s.y += s.v * (hyper ? 8 : 2.0);
-    s.x += Math.sin(Date.now()/1300) * 0.06;
-
-    if(s.y > h + 10){
-      s.y = -10;
-      s.x = Math.random() * w;
-    }
-
-    starsCtx.beginPath();
-    starsCtx.fillStyle = "white";
-    starsCtx.arc(s.x, s.y, s.r * (hyper ? 1.6 : 1), 0, Math.PI*2);
-    starsCtx.fill();
-  }
-}
-
-function drawStreaks(){
-  streaksCtx.clearRect(0,0,w,h);
-
-  if(!hyper){
-    return; // only show streaks in hyper mode
-  }
-
-  streaksCtx.globalAlpha = 0.7;
-  for(const st of streaks){
-    st.y += st.speed * 18;
-    if(st.y > h + st.len){
-      st.y = -st.len;
-      st.x = Math.random() * w;
-    }
-
-    const grad = streaksCtx.createLinearGradient(st.x, st.y, st.x, st.y + st.len);
-    grad.addColorStop(0, "rgba(255,255,255,0)");
-    grad.addColorStop(0.35, "rgba(255,255,255,0.7)");
-    grad.addColorStop(1, "rgba(255,255,255,0)");
-
-    streaksCtx.strokeStyle = grad;
-    streaksCtx.lineWidth = 1.1;
-    streaksCtx.beginPath();
-    streaksCtx.moveTo(st.x, st.y);
-    streaksCtx.lineTo(st.x, st.y + st.len);
-    streaksCtx.stroke();
-  }
-}
-
-function loop(){
-  drawStars();
-  drawStreaks();
-  requestAnimationFrame(loop);
-}
-
-enterBtn.addEventListener("click", () => {
-  document.body.classList.add("entering");
+function goHub() {
+  portal.classList.add("is-transitioning");
   setTimeout(() => {
-    window.location.href = "hub.html";
-  }, 1100);
-});
+    window.location.href = HUB_URL;
+  }, 720);
+}
 
-window.addEventListener("keydown", (e) => {
-  if(e.code === "Space"){
-    e.preventDefault();
-    hyper = !hyper;
-    document.body.classList.toggle("hyper", hyper);
-  }
-});
+skipBtn.addEventListener("click", goHub);
 
-resize();
-loop();
+// If the video ends, go to hub
+video.addEventListener("ended", goHub);
+
+// If you want it to loop for vibe while people watch, leave loop on.
+// If you want it to end and transition, remove "loop" from the HTML video tag.

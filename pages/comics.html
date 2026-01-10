@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="The Story — Moments. Memories. Lore."/>
+  <meta name="theme-color" content="#050a10"/>
+  <title>The Story — Funky Bunnyverse</title>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400&display=swap');
+    
+    :root {
+      --bg: #050a10;
+      --cyan: #33d6ff;
+      --purple: #a855f7;
+      --text: rgba(255, 255, 255, 0.88);
+      --text-soft: rgba(255, 255, 255, 0.6);
+      --text-whisper: rgba(255, 255, 255, 0.35);
+      --font-display: 'Space Mono', monospace;
+      --font-body: 'Outfit', sans-serif;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+    }
+    
+    .atmosphere {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: 
+        radial-gradient(600px 500px at 20% 30%, rgba(51, 214, 255, 0.06), transparent 60%),
+        radial-gradient(500px 400px at 80% 70%, rgba(168, 85, 247, 0.05), transparent 60%);
+    }
+    
+    .content {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      padding: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    
+    .back-link {
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--text-whisper);
+      text-decoration: none;
+      padding: 10px 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      transition: all 0.3s ease;
+    }
+    
+    .back-link:hover {
+      color: var(--text-soft);
+      border-color: rgba(51, 214, 255, 0.3);
+    }
+    
+    .room-label {
+      text-align: right;
+    }
+    
+    .room-label h1 {
+      font-family: var(--font-display);
+      font-size: clamp(18px, 2.5vw, 26px);
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--cyan);
+      text-shadow: 0 0 30px rgba(51, 214, 255, 0.4);
+    }
+    
+    .room-label p {
+      margin-top: 6px;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      color: var(--text-whisper);
+    }
+    
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      text-align: center;
+    }
+    
+    .icon {
+      font-size: 72px;
+      margin-bottom: 32px;
+      filter: drop-shadow(0 0 40px rgba(51, 214, 255, 0.4));
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    
+    .message {
+      font-family: var(--font-display);
+      font-size: 14px;
+      letter-spacing: 0.12em;
+      color: var(--text-soft);
+      line-height: 2;
+      max-width: 400px;
+    }
+    
+    .message em {
+      color: var(--cyan);
+      font-style: normal;
+    }
+    
+    .hint {
+      margin-top: 48px;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--text-whisper);
+      padding: 12px 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 999px;
+    }
+    
+    footer {
+      padding: 40px;
+      text-align: center;
+    }
+    
+    footer p {
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--text-whisper);
+      opacity: 0.5;
+    }
+    
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.04;
+      z-index: 1000;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='.4'/%3E%3C/svg%3E");
+    }
+    
+    @media (max-width: 600px) {
+      header { padding: 24px; flex-direction: column; gap: 20px; }
+      .room-label { text-align: left; }
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+      .icon { animation: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="atmosphere"></div>
+  <div class="grain"></div>
+  
+  <div class="content">
+    <header>
+      <a href="../index.html" class="back-link">← back to hub</a>
+      <div class="room-label">
+        <h1>THE STORY</h1>
+        <p>moments. memories. lore.</p>
+      </div>
+    </header>
+    
+    <main>
+      <div class="icon">📖</div>
+      <p class="message">
+        the story unfolds <em>slowly</em>.<br>
+        not all at once.<br>
+        not on demand.<br><br>
+        when the first chapter is ready,<br>
+        you'll know.
+      </p>
+      <div class="hint">chapter one: coming soon</div>
+    </main>
+    
+    <footer>
+      <p>"lore is subtle. hidden. never dumped all at once."</p>
+    </footer>
+  </div>
+</body>
+</html>

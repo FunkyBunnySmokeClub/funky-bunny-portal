@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <meta name="description" content="You found it."/>
+  <meta name="theme-color" content="#030108"/>
+  <title>???</title>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300&display=swap');
+    
+    :root {
+      --bg: #030108;
+      --purple: #a855f7;
+      --pink: #ff4fd8;
+      --cyan: #33d6ff;
+      --green: #7CFF6B;
+      --text: rgba(255, 255, 255, 0.88);
+      --text-soft: rgba(255, 255, 255, 0.5);
+      --text-whisper: rgba(255, 255, 255, 0.25);
+      --text-ghost: rgba(255, 255, 255, 0.12);
+      --font-display: 'Space Mono', monospace;
+      --font-body: 'Outfit', sans-serif;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+    }
+    
+    /* Atmosphere - darker, more mysterious */
+    .atmosphere {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background: 
+        radial-gradient(400px 300px at 50% 50%, rgba(168, 85, 247, 0.04), transparent 60%);
+    }
+    
+    /* Floating sigils */
+    .sigil {
+      position: fixed;
+      font-size: 24px;
+      opacity: 0;
+      pointer-events: none;
+      animation: sigilFloat 20s ease-in-out infinite;
+      filter: blur(0.5px);
+    }
+    
+    .sigil:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+    .sigil:nth-child(2) { right: 15%; top: 30%; animation-delay: -5s; }
+    .sigil:nth-child(3) { left: 20%; bottom: 25%; animation-delay: -10s; }
+    .sigil:nth-child(4) { right: 25%; bottom: 35%; animation-delay: -15s; }
+    .sigil:nth-child(5) { left: 50%; top: 15%; animation-delay: -7s; }
+    
+    @keyframes sigilFloat {
+      0%, 100% { opacity: 0; transform: translateY(0) rotate(0deg); }
+      50% { opacity: 0.15; transform: translateY(-30px) rotate(10deg); }
+    }
+    
+    /* Content */
+    .content {
+      position: relative;
+      z-index: 1;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      text-align: center;
+    }
+    
+    /* Exit link */
+    .exit-link {
+      position: fixed;
+      top: 40px;
+      left: 40px;
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--text-ghost);
+      text-decoration: none;
+      padding: 10px 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 999px;
+      transition: all 0.4s ease;
+    }
+    
+    .exit-link:hover {
+      color: var(--text-whisper);
+      border-color: rgba(255,255,255,0.1);
+    }
+    
+    /* Main message */
+    .warren {
+      max-width: 600px;
+    }
+    
+    .warren-symbol {
+      font-size: 48px;
+      margin-bottom: 48px;
+      opacity: 0.6;
+      animation: symbolPulse 8s ease-in-out infinite;
+    }
+    
+    @keyframes symbolPulse {
+      0%, 100% { opacity: 0.4; transform: scale(1); filter: blur(0px); }
+      50% { opacity: 0.7; transform: scale(1.05); filter: blur(0.5px); }
+    }
+    
+    .warren h1 {
+      font-family: var(--font-display);
+      font-size: 12px;
+      letter-spacing: 0.4em;
+      color: var(--text-whisper);
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+    
+    .warren-message {
+      font-size: 16px;
+      line-height: 2.2;
+      color: var(--text-soft);
+      margin-bottom: 48px;
+    }
+    
+    .warren-message em {
+      color: var(--purple);
+      font-style: normal;
+    }
+    
+    /* Secrets */
+    .secrets {
+      margin-top: 60px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+    
+    .secrets h2 {
+      font-family: var(--font-display);
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      color: var(--text-ghost);
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+    
+    .secret-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .secret-list li {
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--text-whisper);
+      padding: 12px 20px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      cursor: default;
+    }
+    
+    .secret-list li:hover {
+      background: rgba(168, 85, 247, 0.05);
+      border-color: rgba(168, 85, 247, 0.15);
+      color: var(--text-soft);
+    }
+    
+    .secret-list li span {
+      margin-right: 12px;
+      opacity: 0.5;
+    }
+    
+    /* Coordinates */
+    .coordinates {
+      margin-top: 80px;
+      font-family: var(--font-display);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--text-ghost);
+    }
+    
+    /* Hidden message (only visible in source) */
+    .hidden-in-source {
+      display: none;
+    }
+    
+    /* Counter */
+    .visitor-count {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      font-family: var(--font-display);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: var(--text-ghost);
+      text-align: right;
+    }
+    
+    .visitor-count span {
+      display: block;
+      font-size: 18px;
+      color: var(--text-whisper);
+      margin-bottom: 4px;
+    }
+    
+    /* Grain */
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.06;
+      z-index: 1000;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='.4'/%3E%3C/svg%3E");
+    }
+    
+    /* Glitch effect on hover */
+    .glitch-hover {
+      position: relative;
+    }
+    
+    .glitch-hover:hover {
+      animation: glitchText 0.3s ease infinite;
+    }
+    
+    @keyframes glitchText {
+      0%, 100% { transform: translate(0); }
+      25% { transform: translate(-1px, 1px); }
+      50% { transform: translate(1px, -1px); }
+      75% { transform: translate(-1px, -1px); }
+    }
+    
+    /* Responsive */
+    @media (max-width: 600px) {
+      .content { padding: 24px; }
+      .exit-link { top: 20px; left: 20px; }
+      .visitor-count { bottom: 20px; right: 20px; }
+    }
+    
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .sigil, .warren-symbol { animation: none !important; }
+      .warren-symbol { opacity: 0.6; }
+    }
+  </style>
+</head>
+
+<body>
+  
+  <!-- 
+    ============================================
+    you looked at the source.
+    the bunnies respect that.
+    
+    here's something for your curiosity:
+    
+    "the first key is observation.
+     the second is patience.
+     the third... you'll find it when you stop looking."
+    
+    — the witness
+    ============================================
+  -->
+  
+  <div class="atmosphere"></div>
+  
+  <div class="sigil">◇</div>
+  <div class="sigil">○</div>
+  <div class="sigil">△</div>
+  <div class="sigil">☽</div>
+  <div class="sigil">✧</div>
+  
+  <div class="grain"></div>
+  
+  <a href="../index.html" class="exit-link">← surface</a>
+  
+  <div class="visitor-count">
+    <span id="visitorNum">???</span>
+    visitors found this
+  </div>
+  
+  <div class="content">
+    
+    <div class="warren">
+      
+      <div class="warren-symbol">🕳️</div>
+      
+      <h1 class="glitch-hover">the warren</h1>
+      
+      <p class="warren-message">
+        you found the rabbit hole.<br><br>
+        this place isn't advertised.<br>
+        there's no link to it.<br>
+        <em>yet here you are.</em><br><br>
+        that means something.
+      </p>
+      
+      <div class="secrets">
+        <h2>things we don't say out loud</h2>
+        <ul class="secret-list">
+          <li><span>01</span> the smoke club is a mental state, not a place</li>
+          <li><span>02</span> the bunnies existed before we drew them</li>
+          <li><span>03</span> the universe is a wellness company in disguise</li>
+          <li><span>04</span> everything here is medicine</li>
+          <li><span>05</span> you were looking for this before you knew it existed</li>
+        </ul>
+      </div>
+      
+      <p class="coordinates">
+        coordinates: unknown<br>
+        depth: ∞<br>
+        status: <span id="status">observing</span>
+      </p>
+      
+    </div>
+    
+  </div>
+  
+  <div class="hidden-in-source">
+    The next secret page is at /pages/void.html
+    But it doesn't exist yet.
+    When it does, you'll know.
+  </div>
+  
+  <script>
+    // Generate a fake "visitor number" that persists per user
+    let visitorNum = localStorage.getItem('warrenVisitor');
+    
+    if (!visitorNum) {
+      // Generate a number between 7 and 4,444
+      visitorNum = Math.floor(Math.random() * (4444 - 7 + 1)) + 7;
+      localStorage.setItem('warrenVisitor', visitorNum);
+    }
+    
+    document.getElementById('visitorNum').textContent = visitorNum;
+    
+    // Status changes randomly
+    const statuses = [
+      'observing',
+      'listening',
+      'waiting',
+      'dreaming',
+      'becoming',
+      'remembering',
+      'drifting'
+    ];
+    
+    const statusEl = document.getElementById('status');
+    
+    setInterval(() => {
+      if (Math.random() > 0.7) {
+        statusEl.style.opacity = '0';
+        setTimeout(() => {
+          statusEl.textContent = statuses[Math.floor(Math.random() * statuses.length)];
+          statusEl.style.opacity = '1';
+        }, 500);
+      }
+    }, 5000);
+    
+    // Console message for the curious
+    console.log(`
+%c🕳️ THE WARREN 🕳️
+%c
+you're ${visitorNum} of the curious ones.
+
+the bunnies remember everyone who finds this place.
+not in a creepy way. in a cosmic way.
+
+type %crabbitHole()%c to go deeper.
+
+`, 
+      'color: #a855f7; font-size: 20px; font-weight: bold;',
+      'color: #888; font-size: 12px;',
+      'color: #7CFF6B; font-weight: bold;',
+      'color: #888;'
+    );
+    
+    // Easter egg function
+    window.rabbitHole = function() {
+      document.body.style.transition = 'filter 2s ease';
+      document.body.style.filter = 'invert(1) hue-rotate(180deg)';
+      
+      setTimeout(() => {
+        document.body.style.filter = '';
+      }, 3000);
+      
+      return "🐰 deeper and deeper... but some doors only open from the inside.";
+    };
+    
+    // Another easter egg: click the symbol 7 times
+    let clickCount = 0;
+    document.querySelector('.warren-symbol').addEventListener('click', () => {
+      clickCount++;
+      if (clickCount === 7) {
+        document.querySelector('.warren-message').innerHTML = `
+          you clicked 7 times.<br><br>
+          7 is the number of completion.<br>
+          7 days. 7 chakras. 7 bunnies.<br><br>
+          <em>you're ready for what comes next.</em>
+        `;
+        clickCount = 0;
+      }
+    });
+  </script>
+  
+</body>
+</html>

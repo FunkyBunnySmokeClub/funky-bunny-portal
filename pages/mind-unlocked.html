@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Mind Unlocked — Thoughts you didn't know you needed."/>
+  <meta name="theme-color" content="#0a0514"/>
+  <title>Mind Unlocked — Funky Bunnyverse</title>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400&display=swap');
+    
+    :root {
+      --bg: #0a0514;
+      --purple: #a855f7;
+      --purple-dim: #7c3aed;
+      --cyan: #33d6ff;
+      --text: rgba(255, 255, 255, 0.88);
+      --text-soft: rgba(255, 255, 255, 0.6);
+      --text-whisper: rgba(255, 255, 255, 0.35);
+      --font-display: 'Space Mono', monospace;
+      --font-body: 'Outfit', sans-serif;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    html, body {
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+    }
+    
+    /* Neural network background */
+    .neural-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    
+    .neural-bg::before {
+      content: '';
+      position: absolute;
+      inset: -30%;
+      background: 
+        radial-gradient(600px 500px at 30% 20%, rgba(168, 85, 247, 0.12), transparent 60%),
+        radial-gradient(500px 400px at 70% 60%, rgba(51, 214, 255, 0.08), transparent 60%),
+        radial-gradient(800px 600px at 50% 90%, rgba(168, 85, 247, 0.06), transparent 50%);
+      animation: neuralPulse 15s ease-in-out infinite alternate;
+    }
+    
+    @keyframes neuralPulse {
+      from { transform: scale(1); filter: hue-rotate(0deg); }
+      to { transform: scale(1.1); filter: hue-rotate(15deg); }
+    }
+    
+    /* Synaptic dots */
+    .synapse {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--purple);
+      opacity: 0;
+      pointer-events: none;
+      animation: synapseFire 4s ease-in-out infinite;
+    }
+    
+    .synapse:nth-child(1) { left: 15%; top: 25%; animation-delay: 0s; }
+    .synapse:nth-child(2) { left: 45%; top: 15%; animation-delay: 1s; }
+    .synapse:nth-child(3) { right: 20%; top: 35%; animation-delay: 2s; }
+    .synapse:nth-child(4) { left: 25%; bottom: 30%; animation-delay: 1.5s; }
+    .synapse:nth-child(5) { right: 30%; bottom: 20%; animation-delay: 0.5s; }
+    
+    @keyframes synapseFire {
+      0%, 100% { opacity: 0; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(2); box-shadow: 0 0 20px var(--purple); }
+    }
+    
+    /* Content */
+    .content {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Header */
+    header {
+      padding: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    
+    .back-link {
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--text-whisper);
+      text-decoration: none;
+      padding: 10px 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      transition: all 0.3s ease;
+    }
+    
+    .back-link:hover {
+      color: var(--text-soft);
+      border-color: rgba(168, 85, 247, 0.3);
+    }
+    
+    .room-label {
+      text-align: right;
+    }
+    
+    .room-label h1 {
+      font-family: var(--font-display);
+      font-size: clamp(18px, 2.5vw, 26px);
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--purple);
+      text-shadow: 0 0 30px rgba(168, 85, 247, 0.4);
+    }
+    
+    .room-label p {
+      margin-top: 6px;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      color: var(--text-whisper);
+    }
+    
+    /* Reflections section */
+    .reflections {
+      flex: 1;
+      padding: 40px;
+      max-width: 800px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .intro {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+    
+    .intro-icon {
+      font-size: 48px;
+      margin-bottom: 24px;
+      filter: drop-shadow(0 0 30px rgba(168, 85, 247, 0.5));
+    }
+    
+    .intro p {
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      color: var(--text-soft);
+      line-height: 1.8;
+    }
+    
+    /* Thought cards */
+    .thoughts {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+    
+    .thought {
+      padding: 32px;
+      border-left: 2px solid rgba(168, 85, 247, 0.3);
+      background: linear-gradient(90deg, rgba(168, 85, 247, 0.04), transparent 80%);
+      transition: all 0.4s ease;
+    }
+    
+    .thought:hover {
+      border-left-color: var(--purple);
+      background: linear-gradient(90deg, rgba(168, 85, 247, 0.08), transparent 80%);
+    }
+    
+    .thought h3 {
+      font-family: var(--font-display);
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      color: var(--purple);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+    
+    .thought p {
+      font-size: 15px;
+      line-height: 1.9;
+      color: var(--text-soft);
+    }
+    
+    .thought p em {
+      color: var(--text);
+      font-style: normal;
+    }
+    
+    /* Coming soon */
+    .coming-soon {
+      text-align: center;
+      padding: 80px 40px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin-top: 60px;
+    }
+    
+    .coming-soon p {
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--text-whisper);
+    }
+    
+    /* Footer */
+    footer {
+      padding: 40px;
+      text-align: center;
+    }
+    
+    footer p {
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--text-whisper);
+      opacity: 0.5;
+    }
+    
+    /* Grain */
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.04;
+      z-index: 1000;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='.4'/%3E%3C/svg%3E");
+    }
+    
+    /* Responsive */
+    @media (max-width: 600px) {
+      header { padding: 24px; flex-direction: column; gap: 20px; }
+      .room-label { text-align: left; }
+      .reflections { padding: 24px; }
+      .thought { padding: 24px; }
+    }
+    
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .synapse, .neural-bg::before { animation: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  
+  <!-- Background -->
+  <div class="neural-bg"></div>
+  <div class="synapse"></div>
+  <div class="synapse"></div>
+  <div class="synapse"></div>
+  <div class="synapse"></div>
+  <div class="synapse"></div>
+  <div class="grain"></div>
+  
+  <div class="content">
+    
+    <header>
+      <a href="../index.html" class="back-link">← back to hub</a>
+      <div class="room-label">
+        <h1>MIND UNLOCKED</h1>
+        <p>inner work</p>
+      </div>
+    </header>
+    
+    <main class="reflections">
+      
+      <div class="intro">
+        <div class="intro-icon">🧠</div>
+        <p>
+          thoughts you didn't know you needed.<br>
+          no instructions. no how-tos.<br>
+          just... reflection.
+        </p>
+      </div>
+      
+      <div class="thoughts">
+        
+        <article class="thought">
+          <h3>on observation</h3>
+          <p>
+            You don't have to react to everything you notice.<br>
+            <em>Seeing is enough.</em><br>
+            The witness changes nothing by watching—<br>
+            but watching changes the witness.
+          </p>
+        </article>
+        
+        <article class="thought">
+          <h3>on speed</h3>
+          <p>
+            The world rewards velocity.<br>
+            But depth requires stillness.<br>
+            <em>You're not behind.</em><br>
+            There is no race—only paths.
+          </p>
+        </article>
+        
+        <article class="thought">
+          <h3>on balance</h3>
+          <p>
+            Chaos and calm are not opposites.<br>
+            They're dance partners.<br>
+            <em>The balance isn't between them—it's holding both.</em>
+          </p>
+        </article>
+        
+        <article class="thought">
+          <h3>on nature</h3>
+          <p>
+            The mushrooms don't rush to grow.<br>
+            The stars don't compete to shine.<br>
+            <em>Nature doesn't hurry, yet everything is accomplished.</em><br>
+            You are nature too.
+          </p>
+        </article>
+        
+      </div>
+      
+      <div class="coming-soon">
+        <p>more reflections incoming...</p>
+      </div>
+      
+    </main>
+    
+    <footer>
+      <p>"the mind unlocks itself. we just create the space."</p>
+    </footer>
+    
+  </div>
+  
+</body>
+</html>
