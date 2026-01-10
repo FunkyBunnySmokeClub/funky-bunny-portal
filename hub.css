@@ -908,16 +908,22 @@ body.portal-exit {
    RESPONSIVE
    ================================ */
 @media (max-width: 1050px) {
+  body {
+    overflow: auto;
+    overflow-x: hidden;
+  }
+  
   .doors {
     grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .parallaxContent {
+    min-height: 100vh;
+    height: auto;
   }
 }
 
 @media (max-width: 720px) {
-  body {
-    overflow: auto;
-  }
-  
   .parallaxContent {
     padding: 22px;
   }
