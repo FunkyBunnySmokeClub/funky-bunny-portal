@@ -55,17 +55,19 @@
   padding: 0;
 }
 
-html, body {
+html {
   height: 100%;
 }
 
 body {
+  min-height: 100%;
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
   font-weight: 300;
   line-height: 1.6;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -303,14 +305,12 @@ body.portal-exit {
 .parallaxScene {
   position: relative;
   width: 100%;
-  height: 100%;
-  overflow: hidden;
-  transform: translateZ(0);
+  min-height: 100vh;
 }
 
-/* Parallax layers */
+/* Parallax layers - fixed background */
 .parallaxLayer {
-  position: absolute;
+  position: fixed;
   inset: -12%;
   pointer-events: none;
   will-change: transform;
@@ -362,10 +362,10 @@ body.portal-exit {
   to { transform: translate3d(16px, -12px, 0) scale(1.06); }
 }
 
-/* Grain + vignette */
+/* Grain overlay */
 .parallaxScene::before {
   content: '';
-  position: absolute;
+  position: fixed;
   inset: -25%;
   pointer-events: none;
   opacity: 0.06;
@@ -381,7 +381,7 @@ body.portal-exit {
 
 .parallaxScene::after {
   content: '';
-  position: absolute;
+  position: fixed;
   inset: 0;
   pointer-events: none;
   background: radial-gradient(
@@ -398,7 +398,7 @@ body.portal-exit {
    Nature reclaiming the digital
    ================================ */
 .sporeField {
-  position: absolute;
+  position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 4;
@@ -445,7 +445,7 @@ body.portal-exit {
   position: relative;
   z-index: 10;
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   padding: 40px;
   display: flex;
   flex-direction: column;
@@ -908,18 +908,8 @@ body.portal-exit {
    RESPONSIVE
    ================================ */
 @media (max-width: 1050px) {
-  body {
-    overflow: auto;
-    overflow-x: hidden;
-  }
-  
   .doors {
     grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .parallaxContent {
-    min-height: 100vh;
-    height: auto;
   }
 }
 
@@ -930,6 +920,7 @@ body.portal-exit {
   
   .doors {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
   
   .door {
